@@ -17,5 +17,5 @@ Because we are using a docker-compose we can easily make them talk to one anothe
 node-app will listen on 8081 > it will be exposed on localhost:4001 by docker see docker-copose
 node-app will connect to redis on 8789. see index.js
 
-2. ![workflow / frontend][workflow / frontend]
+2. ![workflow / frontend](workflow/frontend)
 Install Create React App globally and generate the application
