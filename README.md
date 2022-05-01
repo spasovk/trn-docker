@@ -18,4 +18,24 @@ node-app will listen on 8081 > it will be exposed on localhost:4001 by docker se
 node-app will connect to redis on 8789. see index.js
 
 2. ![workflow / frontend](workflow/frontend)
-Install Create React App globally and generate the application
+- Install Create React App globally and generate the application
+```
+npx create-react-app frontend
+```
+Useful commands
+```
+npn run test    - run test on a project
+npn run build   - build a production version of out application
+npn run start   - starts a development server
+```
+- Create Dockerfile.dev
+```
+FROM node:16-alpine
+WORKDIR '/app'
+COPY package.json .
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run", "start"]
+```
