@@ -1,0 +1,10 @@
+sudo: required
+services:
+  - docker
+#before script: cd workflow/frontend/
+
+before_install:
+  - docker build -f Dockerfile.dev -t kspasov/trn-docker .
+
+script:
+  - docker run -e CI=true kspasov/trn-docker npm run test -- --coverage
