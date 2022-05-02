@@ -24,9 +24,9 @@ npx create-react-app frontend
 ```
 Useful commands
 ```
-npn run test    - run test on a project
-npn run build   - build a production version of out application
-npn run start   - starts a development server
+npm run test    - run test on a project
+npm run build   - build a production version of out application
+npm run start   - starts a development server
 ```
 - Create Dockerfile.dev
 ```
@@ -39,3 +39,38 @@ COPY . .
 
 CMD ["npm", "run", "start"]
 ```
+It will work as is but its not handy so we will do a docker compose file.
+- Create docker compose - docker-compose.yml
+```
+version: '3'
+services: 
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    ports: 
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  # Not needed but basically test container and the host will share the same volume
+  tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
+```
+
+# The workflow
+1. Build phase
+  - run node:alpine16
+  - ocopy the package.json
+  - install dependancies
+  - Run 'npm build'
+2. Run phase
+  - use nginx image
+  - copy the result of 'npm build'
+  - start nginx
