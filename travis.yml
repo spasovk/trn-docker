@@ -4,7 +4,7 @@ services:
 before script: cd workflow/frontend/
 
 before_install:
-  - docker build -f Dockerfile.dev -t kspasov/trn-docker .
+  - docker build -f workflow/frontend/Dockerfile.dev -t kspasov/trn-docker workflow/frontend/
 
 script:
   - docker run -e CI=true kspasov/trn-docker npm run test -- -- coverage
