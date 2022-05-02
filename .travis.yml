@@ -8,3 +8,16 @@ before_install:
 
 script:
   - docker run -e CI=true kspasov/trn-docker npm run test -- --coverage
+
+deploy:
+  provider: "elasticbeanstalk"
+  region: "us-east-1"
+  app: "trn-docker"
+  env: "Trndocker-env"
+  bucket_name: "elasticbeanstalk-us-east-1-624041654339"
+  bucket_path: "trn-docker"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: "$AWS_SECRET_KEY"
